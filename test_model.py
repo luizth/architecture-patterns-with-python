@@ -16,25 +16,24 @@ def make_batch_and_line(sku, batch_qty, line_qty):
 
 
 def test_allocating_to_a_batch_reduces_the_available_quantity():
-    batch = Batch("batch-001", "SMALL-TABLE", qty=20, eta=today)
-    line = OrderLine('order-ref', "SMALL-TABLE", 2)
+    batch, line = make_batch_and_line("SMALL-TABLE", 20, 2)
     batch.allocate(line)
     assert batch.available_quantity == 18
 
 
 def test_can_allocate_if_available_greater_than_required():
-    large_batch, small_line = make_batch_and_line("ELEGANT-LAMP", 20, 2)
-    assert large_batch.can_allocate(small_line)
+    large_batch, small_line = make_batch_and_line("SMALL-TABLE", 20, 2)
+    assert large_batch.can_allocate(small_line) is True
 
 
 def test_cannot_allocate_if_available_smaller_than_required():
-    small_batch, large_line = make_batch_and_line("ELEGANT-LAMP", 2, 20)
+    small_batch, large_line = make_batch_and_line("SMALL-TABLE", 2, 20)
     assert small_batch.can_allocate(large_line) is False
 
 
 def test_can_allocate_if_available_equal_to_required():
-    batch, line = make_batch_and_line("ELEGANT-LAMP", 2, 2)
-    assert batch.can_allocate(line)
+    batch, line = make_batch_and_line("SMALL-TABLE", 2, 2)
+    assert batch.can_allocate(line) is True
 
 
 def test_cannot_allocate_if_skus_do_not_match():
@@ -56,13 +55,11 @@ def test_allocation_is_idempotent():
     assert batch.available_quantity == 18
 
 
-def test_prefers_warehouse_batches_to_shipments():
+def test_prefers_current_stock_batches_to_shipments():
     in_stock_batch = Batch("in-stock-batch", "RETRO-CLOCK", 100, eta=None)
     shipment_batch = Batch("shipment-batch", "RETRO-CLOCK", 100, eta=tomorrow)
     line = OrderLine("oref", "RETRO-CLOCK", 10)
-
     allocate(line, [in_stock_batch, shipment_batch])
-
     assert in_stock_batch.available_quantity == 90
     assert shipment_batch.available_quantity == 100
 
@@ -72,9 +69,7 @@ def test_prefers_earlier_batches():
     medium = Batch("normal-batch", "MINIMALIST-SPOON", 100, eta=tomorrow)
     latest = Batch("slow-batch", "MINIMALIST-SPOON", 100, eta=later)
     line = OrderLine("order1", "MINIMALIST-SPOON", 10)
-
     allocate(line, [medium, earliest, latest])
-
     assert earliest.available_quantity == 90
     assert medium.available_quantity == 100
     assert latest.available_quantity == 100
@@ -90,7 +85,9 @@ def test_returns_allocated_batch_ref():
 
 def test_raises_out_of_stock_exception_if_cannot_allocate():
     batch = Batch('batch1', 'SMALL-FORK', 10, eta=today)
-    allocate(OrderLine('order1', 'SMALL-FORK', 10), [batch])
+    large_line = OrderLine('order1', 'SMALL-FORK', 10)
+    allocate(large_line, [batch])
 
+    small_line = OrderLine('order1', 'SMALL-FORK', 1)
     with pytest.raises(OutOfStock, match='SMALL-FORK'):
-        allocate(OrderLine('order2', 'SMALL-FORK', 1), [batch])
+        allocate(small_line, [batch])
