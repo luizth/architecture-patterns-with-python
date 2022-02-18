@@ -1,7 +1,9 @@
-# Continue from page 61
-
 import model
 import repository
+
+"""
+This module makes integration tests, since it's checking that the repository is correctly integrated with the database.
+"""
 
 
 def insert_order_line(session):
@@ -16,12 +18,23 @@ def insert_order_line(session):
     return orderline_id
 
 
-def insert_batch(session, batch_id):
-    raise NotImplementedError
+def insert_batch(session, reference):
+    session.execute(
+        'INSERT INTO batches (reference, sku, _purchased_quantity)'
+        f' VALUES ("{reference}", "GENERIC-SOFA", 100)'
+    )
+    [[batch_id]] = session.execute(
+        'SELECT id FROM batches WHERE reference=:reference AND sku=:sku',
+        dict(reference=reference, sku="GENERIC-SOFA")
+    )
+    return batch_id
 
 
 def insert_allocation(session, orderline_id, batch_id):
-    raise NotImplementedError
+    session.execute(
+        'INSERT INTO allocations (orderline_id, batch_id)'
+        f' VALUES ({orderline_id}, {batch_id})'
+    )
 
 
 def test_repository_can_save_a_batch(session):
