@@ -33,10 +33,11 @@ General Tips:
 
 Python Tips:
 - Type Hints
-- Dataclasses are greate for value objects
+- Dataclasses for value objects
+- attrs
 - Equality operators (__hash__, __eq__, __lt__, __gt__) for entities
 
-#### Domain Modeling Recap
+#### Chapter 1 Recap
 ![](img/chapter_1_recap.png)
 
 #### Domain (UML and Model):
@@ -44,3 +45,28 @@ Python Tips:
 ![](img/state_1.png)
 
 ---
+### Chapter 2: Repository Pattern
+General Tips:
+- ORM depends on Model (not the other way around), the domain model stays “pure” and free from infrastructure concerns
+- The Repository pattern is an abstraction over persistent storage
+- Whenever we introduce an architectural pattern, we’ll always ask, “What do we get for this? And what does it cost us?”
+- Using a fake repo in tests is really easy
+- Building fakes for your abstractions is an excellent way to get design feedback: if it’s hard to fake, the abstraction is probably too complicated
+- If your app is just a simple CRUD wrapper around a database, then you don’t need a domain model or a repository
+
+Python Tips:
+- SQLAlchemy mapper (ORM)
+- pytest fixtures
+- SQLite in-memory db
+- Delete ABCs from our production code, because Python makes it too easy to ignore them, and they end up unmaintained. In practice we often just rely on Python’s duck typing to enable abstractions
+
+#### Chapter 2 Recap
+![](img/chapter_2_recap.png)
+
+#### Domain model w/ Repository pattern trade-offs
+![](img/repository_pattern_trade_offs.png)
+![](img/domain_model_trade_offs.png)
+
+#### Repository pattern
+![](img/repository_pattern.png)
+![](img/state_2.png)
