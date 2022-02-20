@@ -31,20 +31,19 @@ class SqlAlchemyRepository(AbstractRepository):
 
 
 class FakeRepository(AbstractRepository):
-    batches: List[model.Batch]
+    _batches: List[model.Batch]
 
     def __init__(self, batches):
-        self.batches = set(batches)
+        self._batches = set(batches)
 
     def add(self, batch: model.Batch):
-        self.batches.add(batch)
+        self._batches.add(batch)
 
     def get(self, reference):
-        batch = [item for item in self.batches if item.reference == reference][0]
-        return batch
+        return next(b for b in self._batches if b.reference == reference)
 
     def list(self):
-        return list(self.batches)
+        return list(self._batches)
 
 
 class SqlAlchemyRepository(AbstractRepository):  # Implementation without ORM
