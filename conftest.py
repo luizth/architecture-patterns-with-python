@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from orm import metadata
+from orm import metadata, start_mappers
 
 
 @pytest.fixture
@@ -14,4 +14,5 @@ def in_memory_db():
 
 @pytest.fixture
 def session(in_memory_db):
+    start_mappers()
     yield sessionmaker(bind=in_memory_db)()
