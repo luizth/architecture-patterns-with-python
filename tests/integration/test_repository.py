@@ -1,5 +1,5 @@
-import model
-import repository
+import domain.model as model
+import adapters.repository as repository
 
 """
 This module makes integration tests, since it's checking that the repository is correctly integrated with the database.

@@ -1,4 +1,4 @@
-import model
+import domain.model as model
 
 
 def test_database_exists(session):

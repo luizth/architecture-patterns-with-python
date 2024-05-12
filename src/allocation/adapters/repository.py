@@ -1,7 +1,7 @@
 import abc
 from typing import List
 
-import model
+from allocation.domain import model
 
 
 class AbstractRepository(abc.ABC):
