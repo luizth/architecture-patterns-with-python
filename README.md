@@ -5,14 +5,15 @@
 Architecture Patterns with Python: Enabling Test-Driven Development, Domain-Driven Design, and Event-Driven Microservices
 from Harry J.W. Percival & Bob Gregory
 
-This project was build by coding along with the book using best practices when domain modelling and working with data from
-the database.
+This project was build by coding along with the book using best practices when domain modeling and working with data from the database.
 
 **Implemented Concepts**
 - Domain modelling
 - Dependency Inversion
 - Repository Pattern
-- Unit testing (_lots_)
+- Service Layer
+- TDD
+- Unit, integration and e2e testing (_lots_)
 
 **Libraries**
 - pytest
@@ -21,6 +22,10 @@ the database.
 
 ---
 ## Part 1. Building an Architecture to Support Domain Modeling
+
+Summay:
+
+
 ---
 ### Chapter 1: Domain Modeling
 General Tips:
@@ -38,11 +43,11 @@ Python Tips:
 - Equality operators (__hash__, __eq__, __lt__, __gt__) for entities
 
 #### Chapter 1 Recap
-![](img/chapter_1_recap.png)
+![](.img/chapter_1_recap.png)
 
 #### Domain (UML and Model):
-![](img/model_in_uml.png)
-![](img/state_1.png)
+![](.img/model_in_uml.png)
+![](.img/state_1.png)
 
 ---
 ### Chapter 2: Repository Pattern
@@ -61,12 +66,18 @@ Python Tips:
 - Delete ABCs from our production code, because Python makes it too easy to ignore them, and they end up unmaintained. In practice we often just rely on Python’s duck typing to enable abstractions
 
 #### Chapter 2 Recap
-![](img/chapter_2_recap.png)
+![](.img/chapter_2_recap.png)
 
 #### Domain model w/ Repository pattern trade-offs
-![](img/repository_pattern_trade_offs.png)
-![](img/domain_model_trade_offs.png)
+![](.img/repository_pattern_trade_offs.png)
+![](.img/domain_model_trade_offs.png)
 
 #### Repository pattern
-![](img/repository_pattern.png)
-![](img/state_2.png)
+![](.img/repository_pattern.png)
+![](.img/state_2.png)
+
+---
+### Chapter 3: On Coupling and Abstractions
+
+---
+### Chapter 4: Flask API and Service Layer

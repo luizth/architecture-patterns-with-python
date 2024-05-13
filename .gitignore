@@ -2,11 +2,16 @@
 .idea/*
 
 # Byte-compiled / optimized / DLL files
-__pycache__/*
-*/__pycache__/*
+*__pycache__/
 
 # Environments
 .venv/
 
 # Test
 .pytest_cache/*
+
+# Proj
+*.egg-info
+
+# Other
+.ch3
