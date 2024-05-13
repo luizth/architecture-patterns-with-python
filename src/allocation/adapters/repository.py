@@ -46,7 +46,7 @@ class FakeRepository(AbstractRepository):
         return list(self._batches)
 
 
-class SqlAlchemyRepository(AbstractRepository):  # Implementation without ORM
+class TextualSqlAlchemyRepository(AbstractRepository):  # Implementation without ORM
 
     def __init__(self, session):
         self.session = session

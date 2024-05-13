@@ -37,13 +37,14 @@ allocations = Table(
 
 def start_mappers():
     mapper_registry.map_imperatively(
+        model.OrderLine,
+        order_lines
+    )
+
+    mapper_registry.map_imperatively(
         model.Batch,
         batches,
         properties={
-            '_allocations': relationship(secondary=allocations, collection_class=set)
+            '_allocations': relationship(model.OrderLine, secondary=allocations, collection_class=set)
         }
-    )
-    mapper_registry.map_imperatively(
-        model.OrderLine,
-        order_lines
     )
