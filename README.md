@@ -81,3 +81,18 @@ Python Tips:
 
 ---
 ### Chapter 4: Flask API and Service Layer
+General Tips:
+- Adding a service layer (also called orchestration layer) can be useful for testing. This way, you can better assign the responsibilities of the service layer and the API, which become responsible for dealing with HTTP and web stuff.
+- Define a clear API for your domain. Those can be used by any adapter (entrypoint), an API or a CLI.
+- Design so that your services **depends on abstractions**. This is useful, specially with the repository pattern, so
+you can easily change the component you are using in testing and production (we used FakeRepository and SQLAlchemyRepository).
+- The service layer drives the application: 1. Get some data from the database. 2. Update the domain model. 3. Persis any changes.
+- Look for **domain services** in your application - A piece of logic that belongs to the domain model, but doesn't sit naturally
+inside a stateful entity (e.g. allocate function).
+
+#### Service Layer trade-offs
+![](.img/service_layer_trade_offs.png)
+
+#### Service Layer
+![](.img/service_layer_and_abstractions.png)
+![](.img/state_3.png)
