@@ -16,6 +16,11 @@ get_session = sessionmaker(bind=create_engine(config.get_postgres_uri()))
 app = Flask(__name__)
 
 
+@app.route("/", methods=['GET'])
+def hello_world():
+    return jsonify({'hello': 'world'}), 201
+
+
 @app.route("/allocate", methods=['POST'])
 def allocate_endpoint():
     session = get_session()
