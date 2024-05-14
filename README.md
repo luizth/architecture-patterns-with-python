@@ -96,3 +96,24 @@ inside a stateful entity (e.g. allocate function).
 #### Service Layer
 ![](.img/service_layer_and_abstractions.png)
 ![](.img/state_3.png)
+
+
+---
+### Chapter 5: TDD in High Gear and Low Gear
+General Tips:
+- Run `$ grep -c test_ test_*.py` command to check test pyramid.
+- Tests are supposed to help us change our system fearlessly.
+- Service/API tests provide lower coupling to the domain model and high coverage of the system behavior, but low feedback. Domain tests provide better feedback and executable documentation, high coupling and focused coverage.
+- Think of it as shifting gears: When starting a journey, the bicycle
+needs to be in a low gear so that it can overcome inertia. Once we’re off and running,
+we can go faster and more efficiently by changing into a high gear; but if we suddenly
+encounter a steep hill or are forced to slow down by a hazard, we again drop down to
+a low gear until we can pick up speed again.
+
+#### Chapter 5 Recap
+![](.img/test_spectrum.png)
+![](.img/chapter_5_recap.png)
+
+---
+Next steps:
+- Implement deallocate feature.

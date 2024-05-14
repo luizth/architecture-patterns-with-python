@@ -10,6 +10,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 
 from allocation.adapters.orm import metadata, start_mappers
+from allocation.domain import model
 from allocation import config
 
 
@@ -68,3 +69,8 @@ def restart_api():
     (Path(__file__).parent / "../src/allocation/entrypoints/flask_app.py").touch()
     time.sleep(0.5)
     wait_for_webapp_to_come_up()
+
+
+@pytest.fixture
+def batch():
+    return model.Batch("b1", "COMPLICATED-LAMP", 100, eta=None)
